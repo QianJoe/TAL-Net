@@ -89,7 +89,6 @@ class ResNet12Encoder(nn.Module):
         self.layer2 = self.make_layer(BasicBlock, 128, 2, stride=2)
         self.layer3 = self.make_layer(BasicBlock, 256, 2, stride=2)
         self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(256, num_classes)
 
     def make_layer(self, block, out_channels, blocks, stride):
         layers = []
@@ -107,6 +106,4 @@ class ResNet12Encoder(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.avg_pool(x)
-        x = x.view(x.size(0), -1)
-        x = self.fc(x)
         return x
